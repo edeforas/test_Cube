@@ -147,7 +147,7 @@ bool Cube_3x3x3::is_middle_ring_solved() const
         return false;
 
     int iB=_B.facet(0);
-    if( (_B.facet(3)!=iB) || (_B.facet(3)!=iB) )
+    if( (_B.facet(3)!=iB) || (_B.facet(7)!=iB) )
         return false;
 
     return true;
