@@ -22,7 +22,6 @@ public:
     bool is_solved() const;
     bool is_same_as(const Cube_3x3x3_Face& f) const;
 
-
     int& facet(unsigned int i); //center is [0]
     int facet(unsigned int i) const; //center is [0]
 
@@ -59,22 +58,22 @@ public:
     void Ri();
     void R2();
 
-	void L();
+    void L();
     void Li();
     void L2();
 
-	void F();
+    void F();
     void Fi();
     void F2();
-	
-	void D();
+
+    void D();
     void Di();
     void D2();
-	
-	void B();
+
+    void B();
     void Bi();
     void B2();
-	
+
     void M();
     void Mi();
     void M2();
