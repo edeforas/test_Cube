@@ -1,12 +1,11 @@
 TEMPLATE = app
-CONFIG += console c++11
+CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp \
+SOURCES += test_PLL.cpp \
     Cube_3x3x3.cpp
 
 HEADERS += \
     Cube_3x3x3.h \
     CubeHelper.h \
-    Period.h
