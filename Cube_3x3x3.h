@@ -36,6 +36,7 @@ class Cube_3x3x3
 {
 public:
     Cube_3x3x3();
+    ~Cube_3x3x3();
     void init(); // Up is white, Front is blue
 
     //cube tests
