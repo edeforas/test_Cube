@@ -11,4 +11,4 @@ clean:
 	$(RM) $(ALL) *.o
 
 test: all
-	bash test_PLL
+	./test_PLL
