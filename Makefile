@@ -4,7 +4,7 @@ ALL = test_PLL
 
 all: $(ALL)
 
-hello: test_PLL.cpp Cube_3x3x3.cpp Makefile
+test_PLL: test_PLL.cpp Cube_3x3x3.cpp Makefile
 	$(CXX) $(CXXFLAGS) -o $@ $@.cpp
 
 clean:
