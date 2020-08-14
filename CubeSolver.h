@@ -23,7 +23,7 @@ public:
 private:
 	bool iterate();
 	vector<string> _allowedRotations;
-	int _iMaxDepth,_iDepth;
+	long _iMaxDepth,_iDepth, _iNbTested;
 	bool _bKeepFirstSolution;
 	string _sSequence;
 	Cube_3x3x3 _cube;
