@@ -16,12 +16,14 @@ int main()
 	
 	//set the cube in final state
 	c.rotate("R'UL' U2 RU'R' U2 RLU'"); //exchange 2 far corners PLL
-    disp(c);
-	c.ignore_edge();
+	//c.rotate("R U L"); //exchange 2 far corners PLL
+	disp(c);
+	//c.ignore_edge();
 
 	//now find movements to go back to solved state 
 	CubeSolver cs;
-	cs.set_allowed_rotations("U R2 D");
+//	cs.set_allowed_rotations("U R2 D");
+	cs.set_allowed_rotations("R U L R' U' L'");
 	cs.set_max_depth(15);
 	cs.set_cube(c);
 
