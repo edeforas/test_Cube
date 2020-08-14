@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C5DB2532-0C62-4F0B-A4E8-59BFBD594687}</ProjectGuid>
+    <ProjectGuid>{2A4C0DAF-9D05-45EE-A680-6AEDDAF08C46}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>testPLL</RootNamespace>
+    <RootNamespace>testSolve</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -148,11 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CubeHelper.h" />
+    <ClInclude Include="CubeSolver.h" />
     <ClInclude Include="Cube_3x3x3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CubeSolver.cpp" />
     <ClCompile Include="Cube_3x3x3.cpp" />
-    <ClCompile Include="test_PLL.cpp" />
+    <ClCompile Include="test_solve.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

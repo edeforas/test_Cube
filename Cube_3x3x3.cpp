@@ -18,10 +18,21 @@ bool Cube_3x3x3_Face::is_solved() const
     int iCenter=_facet[0];
 
     for(int i=1;i<9;i++)
-        if(_facet[i]!=iCenter)
+        if( (_facet[i]!=iCenter) && (_facet[i] != GREY) )
             return false;
 
     return true;
+}
+///////////////////////////////////////////////////////////////////////////////
+bool Cube_3x3x3_Face::is_corner_solved() const
+{
+	int iCenter = _facet[0];
+
+	for (int i = 2; i <=8; i+=2)
+		if (_facet[i] != iCenter)
+			return false;
+
+	return true;
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool Cube_3x3x3_Face::is_same_as(const Cube_3x3x3_Face& f) const
@@ -47,13 +58,15 @@ int Cube_3x3x3_Face::facet(unsigned int i) const
 ///////////////////////////////////////////////////////////////////////////////
 void Cube_3x3x3_Face::rotate_clockwise()
 {
-    int f1=_facet[1];
+	//rotate edge
+	int f1=_facet[1];
     _facet[1]=_facet[7];
     _facet[7]=_facet[5];
     _facet[5]=_facet[3];
     _facet[3]=f1;
 
-    int f2=_facet[2];
+	//rotate corners
+	int f2=_facet[2];
     _facet[2]=_facet[8];
     _facet[8]=_facet[6];
     _facet[6]=_facet[4];
@@ -75,6 +88,14 @@ void Cube_3x3x3_Face::rotate_counterclockwise()
     _facet[8]=f2;
 }
 ///////////////////////////////////////////////////////////////////////////////
+void Cube_3x3x3_Face::ignore_edge() // set all edge to grey
+{
+	_facet[1] = GREY;
+	_facet[3] = GREY;
+	_facet[5] = GREY;
+	_facet[7] = GREY;
+}
+///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 Cube_3x3x3::Cube_3x3x3()
 {
@@ -92,6 +113,17 @@ void Cube_3x3x3::init()
     _L.init(RED);
     _D.init(YELLOW);
     _B.init(GREEN);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+void Cube_3x3x3::ignore_edge()
+{
+	_U.ignore_edge();
+	_F.ignore_edge();
+	_R.ignore_edge();
+	_L.ignore_edge();
+	_D.ignore_edge();
+	_B.ignore_edge();
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool Cube_3x3x3::is_solved() const
@@ -185,6 +217,26 @@ bool Cube_3x3x3::is_ready_for_oll() const
 bool Cube_3x3x3::is_ready_for_pll() const
 {
     return is_ready_for_oll() && _U.is_solved();
+}
+///////////////////////////////////////////////////////////////////////////////
+bool Cube_3x3x3::is_corners_solved() const //all corners solved, edge ignored
+{
+	if (!_U.is_corner_solved())
+		return false;
+
+	if (!_R.is_corner_solved())
+		return false;
+
+	if (!_L.is_corner_solved())
+		return false;
+
+	if (!_F.is_corner_solved())
+		return false;
+
+	if (!_D.is_corner_solved())
+		return false;
+
+	return _B.is_corner_solved();
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool Cube_3x3x3::is_same_as(const Cube_3x3x3& c) const
@@ -583,6 +635,8 @@ Cube_3x3x3_Face& Cube_3x3x3::faceB()
 ///////////////////////////////////////////////////////////////////////////////
 void Cube_3x3x3::rotate(string sSeq)
 {
+	//todo use split()?
+
     unsigned int iStart=0;
     while(iStart!=sSeq.size())
     {
@@ -662,7 +716,7 @@ void Cube_3x3x3::rotate(string sSeq)
             if(c2=='2')
                 M2();
             else if(c2=='\'')
-                M();
+                Mi();
             else
                 M();
         }
@@ -670,3 +724,94 @@ void Cube_3x3x3::rotate(string sSeq)
     }
 }
 ///////////////////////////////////////////////////////////////////////////////
+void Cube_3x3x3::split(string sSeq,vector<string>& vsSeq)
+{
+	vsSeq.clear();
+
+	unsigned int iStart = 0;
+	while (iStart != sSeq.size())
+	{
+		unsigned char c1 = sSeq[iStart];
+		iStart++;
+		if (c1 == ' ')
+			continue;
+
+		unsigned char c2;
+		if (iStart != sSeq.size())
+			c2 = sSeq[iStart];
+		else
+			c2 = ' ';
+
+		if (c1 == 'R')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("R2");
+			else if (c2 == '\'')
+				vsSeq.push_back("R'");
+			else
+				vsSeq.push_back("R");
+		}
+
+		if (c1 == 'L')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("L2");
+			else if (c2 == '\'')
+				vsSeq.push_back("L'");
+			else
+				vsSeq.push_back("L");
+		}
+
+		if (c1 == 'U')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("U2");
+			else if (c2 == '\'')
+				vsSeq.push_back("U'");
+			else
+				vsSeq.push_back("U");
+		}
+
+		if (c1 == 'F')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("F2");
+			else if (c2 == '\'')
+				vsSeq.push_back("F'");
+			else
+				vsSeq.push_back("F");
+		}
+
+		if (c1 == 'D')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("D2");
+			else if (c2 == '\'')
+				vsSeq.push_back("D'");
+			else
+				vsSeq.push_back("D");
+		}
+
+		if (c1 == 'B')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("B2");
+			else if (c2 == '\'')
+				vsSeq.push_back("B'");
+			else
+				vsSeq.push_back("B");
+		}
+
+		if (c1 == 'M')
+		{
+			if (c2 == '2')
+				vsSeq.push_back("M2");
+			else if (c2 == '\'')
+				vsSeq.push_back("M'");
+			else
+				vsSeq.push_back("M'");
+		}
+
+	}
+}
+
