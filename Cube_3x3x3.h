@@ -63,9 +63,11 @@ public:
 
     //rotations
     void rotate(string sSeq); //sSeq can be "R U'L2 " ...
+	void rotate(vector<string>& vsSeq);
 
 	//split sequence, utility function
 	static void split(string sSeq, vector<string>& vsSeq);
+	static void unsplit(const vector<string>& vsSeq, string& sSeq );
 
     // faces access
     Cube_3x3x3_Face& faceR();

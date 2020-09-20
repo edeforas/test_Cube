@@ -2,6 +2,7 @@
 #define CubeSolver_
 
 #include <string>
+#include <map>
 #include <vector>
 using namespace std;
 
@@ -21,13 +22,14 @@ public:
 	string found_sequence();
 
 private:
-	bool iterate();
+	void next_sequence(vector<string>& vsSequence);
+
 	vector<string> _allowedRotations;
-	long _iMaxDepth,_iDepth, _iNbTested;
+	long _iMaxDepth;
 	bool _bKeepFirstSolution;
 	string _sSequence;
 	Cube_3x3x3 _cube;
-
+	map<string, string> _nextRotation;
 };
 
 #endif

@@ -8,14 +8,16 @@ using namespace std;
 CubeSolver::CubeSolver()
 {
 	_iMaxDepth = 20;
-	_iDepth = 0;
-	_iNbTested = 0;
 	_bKeepFirstSolution = true;
 }
 ///////////////////////////////////////////////////////////////////////////////
 void CubeSolver::set_allowed_rotations(string sRotations)
 {
 	Cube_3x3x3::split(sRotations,_allowedRotations);
+
+	_nextRotation.clear();
+	for (int i = 0; i < _allowedRotations.size(); i++)
+		_nextRotation.insert({ _allowedRotations[i],_allowedRotations[(i + 1) % _allowedRotations.size()] });
 }
 ///////////////////////////////////////////////////////////////////////////////
 void CubeSolver::set_max_depth(int iMaxDepth)
@@ -35,9 +37,38 @@ void CubeSolver::set_keep_first_solution(bool bKeepFirstSolution)
 ///////////////////////////////////////////////////////////////////////////////
 bool CubeSolver::run()
 {
-	_iDepth = 0;
-	_iNbTested = 0;
-	return iterate();
+	//test small depth first
+	for (int d = 0; d <= _iMaxDepth; d++)
+	{
+		cout << "Searching at depth=" << d << endl;
+		
+		//build first small depth sequence
+		vector<string> vsSequence,vsOrigSequence;
+		for(int i=0 ; i<d;i++)
+			vsSequence.push_back(_allowedRotations[0]);
+
+		vsOrigSequence = vsSequence;
+
+		do
+		{ 
+			Cube_3x3x3 c = _cube;
+
+			c.rotate(vsSequence);
+			if (c.is_solved())
+			{
+				Cube_3x3x3::unsplit(vsSequence, _sSequence);
+				if(_bKeepFirstSolution)
+					return true;
+				else
+					cout << "Found sequence: " << _sSequence << endl;
+			}
+
+			next_sequence(vsSequence);
+		}
+		while(vsSequence != vsOrigSequence);		
+	}
+	
+	return false;
 }
 ///////////////////////////////////////////////////////////////////////////////
 string CubeSolver::found_sequence()
@@ -45,40 +76,17 @@ string CubeSolver::found_sequence()
 	return _sSequence;
 }
 ///////////////////////////////////////////////////////////////////////////////
-bool CubeSolver::iterate()
+void CubeSolver::next_sequence(vector<string>& vsSequence)
 {
-	//lots of recursive call ; bad! but call depth is small (<50)
-
-	if (_cube.is_solved())
-		return true;
-	
-	if (_iDepth == _iMaxDepth)
-		return false;
-	_iDepth++;
-
-	if (_iNbTested % (1'000'000L) == 0L)
-		cout << _sSequence << "***** nbTested=" << _iNbTested << endl;
-	
-	Cube_3x3x3 cubeOld = _cube;
-	string sSequenceOld = _sSequence;
-	for (int i = 0; i < _allowedRotations.size(); i++)
+	int iPosRotToChange = 0;
+	while (iPosRotToChange < vsSequence.size())
 	{
-		_sSequence = sSequenceOld + " " + _allowedRotations[i];
-		_cube = cubeOld;
-		_cube.rotate(_allowedRotations[i]);
-		if (iterate() && _bKeepFirstSolution)
-			return true;
-		
-		_iNbTested++;
+		vsSequence[iPosRotToChange] = _nextRotation[vsSequence[iPosRotToChange]];
+
+		if (vsSequence[iPosRotToChange] != _allowedRotations[0])
+			return;
+		else
+			iPosRotToChange++;
 	}
-
-	_sSequence = sSequenceOld;
-	_iDepth--;
-	_cube = cubeOld;
-
-	return false;
 }
 ///////////////////////////////////////////////////////////////////////////////
-
-
-

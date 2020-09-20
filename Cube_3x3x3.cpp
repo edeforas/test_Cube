@@ -633,10 +633,45 @@ Cube_3x3x3_Face& Cube_3x3x3::faceD()
 Cube_3x3x3_Face& Cube_3x3x3::faceB()
 { return _B; }
 ///////////////////////////////////////////////////////////////////////////////
+void Cube_3x3x3::rotate(vector<string>& vsSeq)
+{
+	for (int i = 0; i < vsSeq.size(); i++)
+	{
+		const string & sRot = vsSeq[i];
+		
+		if (sRot == "U") U();
+		else if (sRot == "U'") Ui();
+		else if (sRot == "U2") U2();
+	
+		else if (sRot == "R") U();
+		else if (sRot == "R'") Ri();
+		else if (sRot == "R2") R2();
+		
+		else if (sRot == "L") L();
+		else if (sRot == "L'") Li();
+		else if (sRot == "L2") L2();
+		
+		else if (sRot == "F") F();
+		else if (sRot == "F'") Fi();
+		else if (sRot == "F2") F2();
+
+		else if (sRot == "D") D();
+		else if (sRot == "D'") Di();
+		else if (sRot == "D2") D2();
+
+		else if (sRot == "B") B();
+		else if (sRot == "B'") Bi();
+		else if (sRot == "B2") B2();
+
+		else if (sRot == "M") M();
+		else if (sRot == "M'") Mi();
+		else if (sRot == "M2") M2();
+	}
+}
+///////////////////////////////////////////////////////////////////////////////
 void Cube_3x3x3::rotate(string sSeq)
 {
-	//todo use split()?
-
+	// use split ?
     unsigned int iStart=0;
     while(iStart!=sSeq.size())
     {
@@ -720,7 +755,6 @@ void Cube_3x3x3::rotate(string sSeq)
             else
                 M();
         }
-
     }
 }
 ///////////////////////////////////////////////////////////////////////////////
@@ -814,4 +848,12 @@ void Cube_3x3x3::split(string sSeq,vector<string>& vsSeq)
 
 	}
 }
+///////////////////////////////////////////////////////////////////////////////
+void Cube_3x3x3::unsplit(const vector<string>& vsSeq, string& sSeq)
+{
+	sSeq.clear();
 
+	for (int i = 0; i < vsSeq.size(); i++)
+		sSeq = sSeq + " " + vsSeq[i];
+}
+///////////////////////////////////////////////////////////////////////////////
