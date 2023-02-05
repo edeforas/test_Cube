@@ -145,21 +145,43 @@ void Sequence::set_allowed_rotations(const string& sRotations)
 	_lastRotation = _allowedRotations[_allowedRotations.size()-1];
 }
 ///////////////////////////////////////////////////////////////////////////////
-bool Sequence::next_rotation() //change most recent moves first
+bool Sequence::next_rotation() //change recent moves first
 {
 	if (_rotations.empty())
 		return true;
 
 	// increment the position (from the lower digit to the higher digit)
 	int i=0 ;
-	string firstRotation = _allowedRotations[0];
 	for (i = (int)_rotations.size()-1; i>=0; i--)
 	{
 		string r = _rotations[i];
 		string nextRotation = _nextRotation[r];
 		_rotations[i] = nextRotation;
-		if (nextRotation != firstRotation)
+		if (nextRotation != _allowedRotations[0]) // test if carry
 			break;
+	}
+
+	// fix same axis
+	for (int j = 0; j < _rotations.size()-1; j++)
+	{
+		string r = _rotations[j];
+		string rp = _rotations[j+1];
+
+		if (r[0] == rp[0]) // same axis
+		{
+			_rotations[j + 1] = _nextRotationOtherAxis[r];
+
+			bool bToggle0 = true;
+			for (int k = j + 2; k < _rotations.size() ; k++)
+			{
+				if (bToggle0)
+					_rotations[k] = _allowedRotations[0];
+				else
+					_rotations[k] = _nextRotationOtherAxis[_allowedRotations[0]];
+
+				bToggle0 = !bToggle0;
+			}
+		}
 	}
 
 //	fix_same_axis();
