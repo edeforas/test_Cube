@@ -1,5 +1,4 @@
 #include "Sequence.h"
-#include "Sequence.h"
 #include <cassert>
 #include <sstream>
 
@@ -15,10 +14,6 @@ void Sequence::init_depth(int iDepth)
 	_rotations.clear();
 	for (int i = 0; i < iDepth; i++)
 		_rotations.push_back(_allowedRotations[0]);
-
-	// it is not possible to have the same rotation everywhere
-	// the first correct sequence will be A B A B ...
-	fix_same_axis();
 }
 ///////////////////////////////////////////////////////////////////////////////
 void Sequence::set(const vector<string>& vsSeq)
@@ -42,9 +37,7 @@ void Sequence::split(const string& sSeq,vector<string>& vsSeq) const
 	istringstream f(sSeq);
 	string s;
 	while (std::getline(f, s, ' '))
-	{
 		vsSeq.push_back(s);
-	}
 }
 ///////////////////////////////////////////////////////////////////////////////
 void Sequence::unsplit(const vector<string>& vsSeq, string& sSeq,bool bSimplify) const
@@ -55,14 +48,12 @@ void Sequence::unsplit(const vector<string>& vsSeq, string& sSeq,bool bSimplify)
 		return;
 	
 	if (!bSimplify)
-	{
 		for (unsigned int i = 0; i < vsSeq.size(); i++)
 			sSeq = sSeq + " " + vsSeq[i];
-	}
 	else
 	{
 		string prevRotation="#";
-		int iPrevAngle = 0; // 0 = nothing, 1= direct , 2 = 180deg , 3= '
+		int iPrevAngle = 0; // 0 = nothing, 1= 90deg, 2 = 180deg, 3=-90deg
 		for (unsigned int i = 0; i <= vsSeq.size(); i++)
 		{
 			if (i == 0)
@@ -107,17 +98,6 @@ void Sequence::unsplit(const vector<string>& vsSeq, string& sSeq,bool bSimplify)
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////
-void Sequence::replace_inplace(string& subject, const string& search, const string& replace) const
-{
-	// not needed?
-	// from https://stackoverflow.com/questions/1494399/how-do-i-search-find-and-replace-in-a-standard-string
-	size_t pos = 0;
-	while ((pos = subject.find(search, pos)) != std::string::npos) {
-		subject.replace(pos, search.length(), replace);
-		pos += replace.length();
-	}
-}
-///////////////////////////////////////////////////////////////////////////////
 void Sequence::set_allowed_rotations(const string& sRotations)
 {
 	split(sRotations, _allowedRotations);
@@ -139,10 +119,7 @@ void Sequence::set_allowed_rotations(const string& sRotations)
 				break;
 			}
 		}
-
-		_nextRotationOtherAxis.insert({ thisRotation,sNextRotationOtherAxis });
 	}
-	_lastRotation = _allowedRotations[_allowedRotations.size()-1];
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool Sequence::next_rotation() //change recent moves first
@@ -161,31 +138,7 @@ bool Sequence::next_rotation() //change recent moves first
 			break;
 	}
 
-	// fix same axis
-	for (int j = 0; j < _rotations.size()-1; j++)
-	{
-		string r = _rotations[j];
-		string rp = _rotations[j+1];
-
-		if (r[0] == rp[0]) // same axis
-		{
-			_rotations[j + 1] = _nextRotationOtherAxis[r];
-
-			bool bToggle0 = true;
-			for (int k = j + 2; k < _rotations.size() ; k++)
-			{
-				if (bToggle0)
-					_rotations[k] = _allowedRotations[0];
-				else
-					_rotations[k] = _nextRotationOtherAxis[_allowedRotations[0]];
-
-				bToggle0 = !bToggle0;
-			}
-		}
-	}
-
-//	fix_same_axis();
-	return i< 0; // true if all sequence of this depth done
+	return i< 0; // true if all sequence of this depth have been seen
 }
 ///////////////////////////////////////////////////////////////////////////////
 string Sequence::to_string(bool bSimplify) const
@@ -193,28 +146,5 @@ string Sequence::to_string(bool bSimplify) const
 	string s;
 	unsplit(_rotations, s, bSimplify);
 	return s;
-}
-///////////////////////////////////////////////////////////////////////////////
-void Sequence::fix_same_axis()
-{
-	if (_rotations.size() <= 1)
-		return;
-
-	bool bFoundPair = true;
-	while (bFoundPair)
-	{
-		bFoundPair = false;
-		for (size_t i = 0; i < _rotations.size() - 1; i++)
-		{
-			string r1 = _rotations[i];
-			string r2 = _rotations[i + 1];
-			if ((r1[0] == r2[0]) && (r1[0]!=_lastRotation[0])) //same axis
-			{
-				_rotations[i + 1] = _nextRotationOtherAxis[_rotations[i + 1]];
-				bFoundPair = true;
-				break;
-			}
-		}
-	}
 }
 ///////////////////////////////////////////////////////////////////////////////
