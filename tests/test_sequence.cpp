@@ -12,7 +12,9 @@ int main()
 	for (int i = 0; i < 100; i++)
 	{
 		cout << seq.to_string(false) << endl;
-		seq.next_rotation();
+		bool newCycle=seq.next_rotation();
+		if (newCycle )
+			cout << "newCycle!" << endl;
 	}
 
 	return 0;
