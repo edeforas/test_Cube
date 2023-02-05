@@ -12,12 +12,12 @@ public:
 	Sequence();
     ~Sequence();
 
-	void init(int iDepth);
+	void init_depth(int iDepth);
 
     void set(const string& sSeq); //sSeq can be "R U' L2 " ...
 	void set(const vector<string>& vsSeq);
 	const vector<string>& rotations();
-	string to_string() const;
+	string to_string(bool bSimplify=true) const;
 
 	void set_allowed_rotations(const string& sRotations);
 

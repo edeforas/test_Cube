@@ -10,7 +10,7 @@ Sequence::Sequence()
 Sequence::~Sequence()
 { }
 ///////////////////////////////////////////////////////////////////////////////
-void Sequence::init(int iDepth)
+void Sequence::init_depth(int iDepth)
 {
 	_rotations.clear();
 	for (int i = 0; i < iDepth; i++)
@@ -166,10 +166,10 @@ bool Sequence::next_rotation() //change most recent moves first
 	return i< 0; // true if all sequence of this depth done
 }
 ///////////////////////////////////////////////////////////////////////////////
-string Sequence::to_string() const
+string Sequence::to_string(bool bSimplify) const
 {
 	string s;
-	unsplit(_rotations, s,true);
+	unsplit(_rotations, s, bSimplify);
 	return s;
 }
 ///////////////////////////////////////////////////////////////////////////////

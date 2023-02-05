@@ -11,3 +11,6 @@ target_link_libraries(test_find_Period libCube)
 
 add_executable(test_PLL test_PLL.cpp  )
 target_link_libraries(test_PLL libCube)
+
+add_executable(test_sequence test_sequence.cpp  )
+target_link_libraries(test_sequence libCube)

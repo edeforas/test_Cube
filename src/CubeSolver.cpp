@@ -46,7 +46,7 @@ bool CubeSolver::run()
 	{
 		bool bGrowSequence = false;
 		cout << "Searching at depth=" << depth << endl;
-		_seq.init(depth);
+		_seq.init_depth(depth);
 
 		do
 		{ 			
