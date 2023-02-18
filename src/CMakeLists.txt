@@ -3,7 +3,7 @@ set(CUBE_FILES
 	Sequence.cpp Sequence.h
 	CubeHelper.h
 	CubeSolver.cpp CubeSolver.h
-	Period.h
+	SequenceOrder.h
 )
 
 include_directories(.)

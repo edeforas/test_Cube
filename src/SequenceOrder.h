@@ -1,11 +1,11 @@
-#ifndef Period_
-#define Period_
+#ifndef SequenceOrder_
+#define SequenceOrder_
 
 #include "Cube.h"
 
-//compute the period (or order) of the sequence:
+//compute the order of the sequence:
 //  i.e. the number of sequence to apply to get back to initial state
-int Period(const string& sSequence)
+int SequenceOrder(const string& sSequence)
 {
     Cube c;
     int iNB=0;
