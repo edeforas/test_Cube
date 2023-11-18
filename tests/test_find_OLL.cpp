@@ -31,7 +31,7 @@ int main()
 	CubeSolver cs;
 	cs.set_allowed_rotations("M M' M2 U U' U2");
 	cs.set_max_depth(20);
-	cs.set_final_state_pll(true); // accept PLL state for solution
+	cs.set_final_state(true); // accept PLL state for solution
 	cs.set_cube(c);
 	cs.set_stop_at_first_solution(false);
 	cs.set_output_file("test_find_OLL28.txt");

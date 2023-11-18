@@ -141,6 +141,27 @@ bool Sequence::next_rotation() //change recent moves first
 	return i< 0; // true if all sequence of this depth have been seen
 }
 ///////////////////////////////////////////////////////////////////////////////
+// return true if consecutive rotations does not occur on same axis
+bool Sequence::is_optimised()
+{
+	if (_rotations.empty())
+		return true;
+
+	string r = _rotations[0];
+
+	for (int i = 1; i < _rotations.size(); i++)
+	{
+		string snext = _rotations[i];
+
+		if (r[0] == snext[0])
+			return false;
+
+		r = snext;
+	}
+
+	return true;
+}
+///////////////////////////////////////////////////////////////////////////////
 string Sequence::to_string(bool bSimplify) const
 {
 	string s;

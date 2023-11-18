@@ -23,6 +23,8 @@ public:
 
 	bool next_rotation();
 
+	bool is_optimised(); // does not have same consecutive same axis rotation
+
 private:
 	void split(const string& sSeq, vector<string>& vsSeq) const;
 	void unsplit(const vector<string>& vsSeq, string& sSeq,bool bSimplify) const;

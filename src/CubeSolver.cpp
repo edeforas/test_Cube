@@ -13,6 +13,7 @@ CubeSolver::CubeSolver()
 	_iMaxDepth = 20;
 	_bStopAtFirstSolution = true;
 	_bFinalStatePLL = false; // todo add accessor
+	_bCornerSolved = false;
 	_sFileAllSolutions="";
 }
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,33 +52,41 @@ bool CubeSolver::run()
 		do
 		{ 			
 			Cube c = _cube;
-			c.rotate(_seq.rotations());
 
-			bool bFoundSolution = false;
-			if (_bFinalStatePLL)
-				bFoundSolution = c.is_pll_state();
-			else
-				bFoundSolution = c.is_solved();
-
-			if (bFoundSolution)
+			if (_seq.is_optimised()) // do not test redondant moves
 			{
-				if (_bStopAtFirstSolution)
-					return true;
-				else
+				c.rotate(_seq.rotations());
+
+				bool bFoundSolution = false;
+
+				if (_iFinalState == FINAL_STATE_SOLVED)
+					bFoundSolution = c.is_solved();
+
+				if (_iFinalState == FINAL_STATE_PLL)
+					bFoundSolution = c.is_pll_state();
+
+				if (_iFinalState == FINAL_STATE_EDGEPLL)
+					bFoundSolution = c.is_pll_state() && c.is_corners_solved();
+
+				if (bFoundSolution)
 				{
-					string s = _seq.to_string();
-					cout << "Found sequence: " << s << endl;
-					if (!_sFileAllSolutions.empty())
+					if (_bStopAtFirstSolution)
+						return true;
+					else
 					{
-						if (uniqueSolutions.count(s) == 0)
+						string s = _seq.to_string();
+						cout << "Found sequence: " << s << endl;
+						if (!_sFileAllSolutions.empty())
 						{
-							uniqueSolutions.insert(s);
-							f << s << endl;
+							if (uniqueSolutions.count(s) == 0)
+							{
+								uniqueSolutions.insert(s);
+								f << s << endl;
+							}
 						}
 					}
 				}
 			}
-			
 			bGrowSequence=_seq.next_rotation();
 		} while (!bGrowSequence);
 	}
@@ -90,9 +99,9 @@ string CubeSolver::found_sequence()
 	return _seq.to_string();
 }
 ///////////////////////////////////////////////////////////////////////////////
-void CubeSolver::set_final_state_pll(bool bFinalValidPLL)
+void CubeSolver::set_final_state(int iFinalState)
 {
-	_bFinalStatePLL = bFinalValidPLL;
+	_iFinalState = iFinalState;
 }
 ///////////////////////////////////////////////////////////////////////////////
 void CubeSolver::set_output_file(const string& sFileAllSolutions)
