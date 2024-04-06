@@ -4,7 +4,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 Sequence::Sequence()
-{ }
+{ 
+	build_map_fromto_string();
+}
 ///////////////////////////////////////////////////////////////////////////////
 Sequence::~Sequence()
 { }
@@ -16,34 +18,45 @@ void Sequence::init_depth(int iDepth)
 		_rotations.push_back(_allowedRotations[0]);
 }
 ///////////////////////////////////////////////////////////////////////////////
-void Sequence::set(const vector<string>& vsSeq)
+void Sequence::set(const vector<int>& vsSeq)
 {
 	_rotations = vsSeq;
 }
 ///////////////////////////////////////////////////////////////////////////////
 void Sequence::set(const string& sSeq)
 {
-	split(sSeq, _rotations);
+	from_string(sSeq, _rotations);
 }
 ///////////////////////////////////////////////////////////////////////////////
-const vector<string>& Sequence::rotations()
+const vector<int>& Sequence::rotations()
 {
 	return _rotations;
 }
 ///////////////////////////////////////////////////////////////////////////////
-void Sequence::split(const string& sSeq,vector<string>& vsSeq) const
+void Sequence::from_string(const string& sSeq,vector<int>& vsSeq) const
 {
 	vsSeq.clear();
 	istringstream f(sSeq);
 	string s;
 	while (std::getline(f, s, ' '))
-		vsSeq.push_back(s);
+	{
+		auto it = _mapFromString.find(s);
+		if (it != _mapFromString.end())
+			vsSeq.push_back((it->second));
+		else
+			throw("Unknow rotation" + s);
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
-void Sequence::unsplit(const vector<string>& vsSeq, string& sSeq,bool bSimplify) const
+void Sequence::to_string(const vector<int>& vsSeq, string& sSeq,bool bSimplify) const
 {
 	sSeq.clear();
-	
+
+	for (int i = 0; i < vsSeq.size(); i++)
+	{
+		sSeq += " "+_mapToString.at(vsSeq[i]);
+	}
+	/*
 	if (vsSeq.empty())
 		return;
 	
@@ -96,11 +109,12 @@ void Sequence::unsplit(const vector<string>& vsSeq, string& sSeq,bool bSimplify)
 			}
 		}
 	}
+	*/
 }
 ///////////////////////////////////////////////////////////////////////////////
 void Sequence::set_allowed_rotations(const string& sRotations)
 {
-	split(sRotations, _allowedRotations);
+	from_string(sRotations, _allowedRotations);
 
 	_nextRotation.clear();
 	for (size_t i = 0; i < _allowedRotations.size(); i++)
@@ -109,11 +123,11 @@ void Sequence::set_allowed_rotations(const string& sRotations)
 	//fill next rotation on another axis
 	for (size_t i = 0; i < _allowedRotations.size(); i++)
 	{
-		string thisRotation = _allowedRotations[i];
-		string sNextRotationOtherAxis = _allowedRotations[0];
+		int thisRotation = _allowedRotations[i];
+		int sNextRotationOtherAxis = _allowedRotations[0];
 		for (size_t j = i + 1; j < _allowedRotations.size(); j++)
 		{
-			if (thisRotation[0] != _allowedRotations[j][0])
+			if (ROT_SAME_AXIS(thisRotation, _allowedRotations[j])==false)
 			{
 				sNextRotationOtherAxis = _allowedRotations[j];
 				break;
@@ -122,7 +136,7 @@ void Sequence::set_allowed_rotations(const string& sRotations)
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////
-bool Sequence::next_rotation() //change recent moves first
+bool Sequence::next_rotation() //change recent moves first , return true if all possible rotations has been seen
 {
 	int iSize = (int)_rotations.size();
 	if (iSize==0)
@@ -132,8 +146,8 @@ bool Sequence::next_rotation() //change recent moves first
 	int i=0;
 	for (i = iSize-1; i>=0; i--)
 	{
-		string r = _rotations[i];
-		string nextRotation = _nextRotation[r];
+		int r = _rotations[i];
+		int nextRotation = _nextRotation[r];
 		_rotations[i] = nextRotation;
 		if (nextRotation != _allowedRotations[0]) // test if carry
 			break;
@@ -149,13 +163,13 @@ bool Sequence::is_optimised()
 	if (iSize<2)
 		return true;
 
-	string r = _rotations[0];
+	int r = _rotations[0];
 
 	for (int i = 1; i < iSize; i++)
 	{
-		string snext = _rotations[i];
+		int snext = _rotations[i];
 
-		if (r[0] == snext[0])
+		if (ROT_SAME_AXIS(r, snext))
 			return false;
 
 		r = snext;
@@ -167,7 +181,46 @@ bool Sequence::is_optimised()
 string Sequence::to_string(bool bSimplify) const
 {
 	string s;
-	unsplit(_rotations, s, bSimplify);
+	to_string(_rotations, s, bSimplify);
 	return s;
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+void Sequence::build_map_fromto_string()
+{
+	_mapFromString.clear();
+	_mapFromString["U"] = ROT_U;
+	_mapFromString["U'"] = ROT_Up;
+	_mapFromString["U2"] = ROT_U2;
+
+	_mapFromString["L"] = ROT_L;
+	_mapFromString["L'"] = ROT_Lp;
+	_mapFromString["L2"] = ROT_L2;
+
+	_mapFromString["R"] = ROT_R;
+	_mapFromString["R'"] = ROT_Rp;
+	_mapFromString["R2"] = ROT_R2;
+
+	_mapFromString["F"] = ROT_F;
+	_mapFromString["F'"] = ROT_Fp;
+	_mapFromString["F2"] = ROT_F2;
+
+	_mapFromString["D"] = ROT_D;
+	_mapFromString["D'"] = ROT_Dp;
+	_mapFromString["D2"] = ROT_D2;
+
+	_mapFromString["B"] = ROT_B;
+	_mapFromString["B'"] = ROT_Bp;
+	_mapFromString["B2"] = ROT_B2;
+
+	_mapFromString["M"] = ROT_M;
+	_mapFromString["M'"] = ROT_Mp;
+	_mapFromString["M2"] = ROT_M2;
+
+	_mapToString.clear();
+	for (auto it = _mapFromString.begin(); it != _mapFromString.end(); it++)
+	{
+		_mapToString[it->second] = it->first;
+	}
+}
+

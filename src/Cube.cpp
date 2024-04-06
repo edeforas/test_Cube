@@ -672,48 +672,48 @@ Cube_Face& Cube::faceD()
 Cube_Face& Cube::faceB()
 { return _B; }
 ///////////////////////////////////////////////////////////////////////////////
-void Cube::rotate(const vector<string>& vsSeq)
+void Cube::rotate(const vector<int>& vsSeq)
 {
     // todo optimise
 	for (unsigned int i = 0; i < vsSeq.size(); i++)
 	{
-		const string & sRot = vsSeq[i];
+		int sRot = vsSeq[i];
 		
-		if (sRot == "U") U();
-		else if (sRot == "U'") Ui();
-		else if (sRot == "U2") U2();
+		if (sRot == ROT_U) U();
+		else if (sRot == ROT_Up) Ui();
+		else if (sRot == ROT_U2) U2();
 	
-		else if (sRot == "R") R();
-		else if (sRot == "R'") Ri();
-		else if (sRot == "R2") R2();
-		
+		else if (sRot == ROT_R) R();
+		else if (sRot == ROT_Rp) Ri();
+		else if (sRot == ROT_R2) R2();
+	/*
 		else if (sRot == "r") r();
 		else if (sRot == "r'") ri();
 		else if (sRot == "r2") r2();
-
-		else if (sRot == "L") L();
-		else if (sRot == "L'") Li();
-		else if (sRot == "L2") L2();
-		
+    */
+		else if (sRot == ROT_L) L();
+		else if (sRot == ROT_Lp) Li();
+		else if (sRot == ROT_L2) L2();
+	/*
         else if (sRot == "l") l();
         else if (sRot == "l'") li();
         else if (sRot == "l2") l2();
-        
-        else if (sRot == "F") F();
-		else if (sRot == "F'") Fi();
-		else if (sRot == "F2") F2();
+    */    
+        else if (sRot == ROT_F) F();
+		else if (sRot == ROT_Fp) Fi();
+		else if (sRot == ROT_F2) F2();
 
-		else if (sRot == "D") D();
-		else if (sRot == "D'") Di();
-		else if (sRot == "D2") D2();
+		else if (sRot == ROT_D) D();
+		else if (sRot == ROT_Dp) Di();
+		else if (sRot == ROT_D2) D2();
 
-		else if (sRot == "B") B();
-		else if (sRot == "B'") Bi();
-		else if (sRot == "B2") B2();
+		else if (sRot == ROT_B) B();
+		else if (sRot == ROT_Bp) Bi();
+		else if (sRot == ROT_B2) B2();
 
-		else if (sRot == "M") M();
-		else if (sRot == "M'") Mi();
-		else if (sRot == "M2") M2();
+		else if (sRot == ROT_M) M();
+		else if (sRot == ROT_Mp) Mi();
+		else if (sRot == ROT_M2) M2();
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////
