@@ -5,6 +5,7 @@ using namespace std;
 
 int main()
 {
+	// test if cycling with Sequence go thru all possibles moves 
 	Sequence seq;
 	seq.set_allowed_rotations("M M' U U'");
 	seq.init_depth(3);

@@ -124,12 +124,13 @@ void Sequence::set_allowed_rotations(const string& sRotations)
 ///////////////////////////////////////////////////////////////////////////////
 bool Sequence::next_rotation() //change recent moves first
 {
-	if (_rotations.empty())
+	int iSize = (int)_rotations.size();
+	if (iSize==0)
 		return true;
 
 	// increment the position (from the lower digit to the higher digit)
-	int i=0 ;
-	for (i = (int)_rotations.size()-1; i>=0; i--)
+	int i=0;
+	for (i = iSize-1; i>=0; i--)
 	{
 		string r = _rotations[i];
 		string nextRotation = _nextRotation[r];
@@ -144,12 +145,13 @@ bool Sequence::next_rotation() //change recent moves first
 // return true if consecutive rotations does not occur on same axis
 bool Sequence::is_optimised()
 {
-	if (_rotations.empty())
+	auto iSize = _rotations.size();
+	if (iSize<2)
 		return true;
 
 	string r = _rotations[0];
 
-	for (int i = 1; i < _rotations.size(); i++)
+	for (int i = 1; i < iSize; i++)
 	{
 		string snext = _rotations[i];
 

@@ -3,6 +3,9 @@ include_directories(../src)
 add_executable(test_find_PLL test_find_PLL.cpp  )
 target_link_libraries(test_find_PLL libCube)
 
+add_executable(test_find_edge_PLL test_find_edge_PLL.cpp  )
+target_link_libraries(test_find_edge_PLL libCube)
+
 add_executable(test_find_OLL test_find_OLL.cpp  )
 target_link_libraries(test_find_OLL libCube)
 
