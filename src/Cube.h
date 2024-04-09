@@ -63,7 +63,7 @@ public:
 
     //rotations
     void rotate(const string& sSeq); //sSeq can be "R U' L2 " ... use spaces for now
-	void rotate(const vector<int>& vsSeq);
+	void rotate(const vector<int>& vsSeq); //use optimized seq definition
 
     // faces access
     Cube_Face& faceR();

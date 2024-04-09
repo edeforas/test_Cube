@@ -675,7 +675,7 @@ Cube_Face& Cube::faceB()
 void Cube::rotate(const vector<int>& vsSeq)
 {
     // todo optimise
-	for (unsigned int i = 0; i < vsSeq.size(); i++)
+	for (size_t i = 0; i < vsSeq.size(); i++)
 	{
 		int sRot = vsSeq[i];
 		

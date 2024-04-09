@@ -52,7 +52,7 @@ void Sequence::to_string(const vector<int>& vsSeq, string& sSeq,bool bSimplify) 
 {
 	sSeq.clear();
 
-	for (int i = 0; i < vsSeq.size(); i++)
+	for (size_t i = 0; i < vsSeq.size(); i++)
 	{
 		sSeq += " "+_mapToString.at(vsSeq[i]);
 	}
@@ -165,7 +165,7 @@ bool Sequence::is_optimised()
 
 	int r = _rotations[0];
 
-	for (int i = 1; i < iSize; i++)
+	for (size_t i = 1; i < iSize; i++)
 	{
 		int snext = _rotations[i];
 

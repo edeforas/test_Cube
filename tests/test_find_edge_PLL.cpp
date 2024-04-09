@@ -7,7 +7,7 @@ using namespace std;
 
 // the goal is to find a U permutation using only L2, U, U' and U2
 
-// it exist because there is: U' (L2 U2)3 L2 U L2 U' (L2 U2)3 U L2 U' L2 U as in 
+// it exist because there is at least one : U' (L2 U2)3 L2 U L2 U' (L2 U2)3 U L2 U' L2 U as in 
 // https://alg.cubing.net/?stage=PLL&type=alg&setup=_U-_(L2_U2)3_L2_U_L2_U-_(L2_U2)3_U_L2_U-_L2U
 // but is this sequence minimal ? (22h, 38q)
 
