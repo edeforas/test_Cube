@@ -6,8 +6,8 @@ target_link_libraries(test_find_Jb libCube)
 add_executable(test_find_PLL test_find_PLL.cpp  )
 target_link_libraries(test_find_PLL libCube)
 
-add_executable(test_find_edge_PLL test_find_edge_PLL.cpp  )
-target_link_libraries(test_find_edge_PLL libCube)
+add_executable(test_find_U_PLL test_find_U_PLL.cpp  )
+target_link_libraries(test_find_U_PLL libCube)
 
 add_executable(test_find_OLL test_find_OLL.cpp  )
 target_link_libraries(test_find_OLL libCube)

@@ -9,8 +9,13 @@ using namespace std;
 // edges can scramble
 // useful for cuboids NxNxM
 // 
-// it exist because there is at least one :
+// it exist because there is at least one (24h, 39q):
 // https://alg.cubing.net/?type=alg&alg=U2_(L2_D-_L2_D-_L2_D2_L2_D_L2_D_L2)_U-__(L2_D-_L2_D-_L2_D2_L2_D_L2_D_L2)
+
+// spoil: found one simpler (13h, 19q):
+// https://alg.cubing.net/?type=alg&alg=L2_U_D-_L2_U_L2_U-_L2_D_L2_U-_L2_U
+
+
 int main()
 {
 	Cube c;
