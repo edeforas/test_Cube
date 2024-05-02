@@ -28,7 +28,7 @@ int main()
 		
 	cs.set_final_state(FINAL_STATE_SOLVED);
 	cs.set_stop_at_first_solution(false); // find all solutions
-	cs.set_output_file("test_find_JPERM.txt");
+	cs.set_output_file("test_find_Jb.txt");
 
 	cs.run();
 
