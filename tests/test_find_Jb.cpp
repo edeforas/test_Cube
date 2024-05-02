@@ -9,16 +9,15 @@ using namespace std;
 // edges can scramble
 // useful for cuboids NxNxM
 // 
-// it exist because there is at least one long:
-// https://alg.cubing.net/?type=alg&setup=U2_(L2_D-_L2_D-_L2_D2_L2_D_L2_D_L2)_U-__(L2_D-_L2_D-_L2_D2_L2_D_L2_D_L2)
-
+// it exist because there is at least one :
+// https://alg.cubing.net/?type=alg&alg=U2_(L2_D-_L2_D-_L2_D2_L2_D_L2_D_L2)_U-__(L2_D-_L2_D-_L2_D2_L2_D_L2_D_L2)
 int main()
 {
 	Cube c;
-	disp(c);
+	CubeHelper::print(c);
 	c.ignore_edges();
 	c.rotate("R' U L' U2 R U' R' U2 R L U'"); // Jb
-	disp(c);
+	CubeHelper::print(c);
 
 	// find rotations to go back to solved state
 	CubeSolver cs;

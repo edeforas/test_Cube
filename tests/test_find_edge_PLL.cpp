@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
 	Cube c;
-	disp(c);
+	CubeHelper::print(c);
 	c.rotate("M2 U M' U2 M U M2"); //U Permutation  as in https://alg.cubing.net/?stage=PLL&type=alg&view=playback&alg=M2_U_M-_U2_M_U_M2
 
 	// find rotations to go back to solved state

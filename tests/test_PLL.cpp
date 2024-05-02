@@ -10,7 +10,7 @@ int main()
 {
     Cube c;
     c.rotate("R' U L' U2 R U' R' U2 R L U'"); //exchange 2 far corners PLL
-    disp(c);
+    CubeHelper::print(c);
     cout << "solved?:" << c.is_solved() << " pll_state?:" << c.is_pll_state() << endl << endl;
 
     return 0;

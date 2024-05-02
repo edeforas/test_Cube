@@ -25,7 +25,7 @@ int main()
 	// https://alg.cubing.net/?stage=OLL&type=alg&view=playback&alg=r_U_R-_U-_M2_U_R_U-_R-_U-_M-
 	//c.rotate("r U R' U' M2 U R U' R' U' M'");
 
-	disp(c);
+	CubeHelper::print(c);
 
 	//now find movements to go back to solved state
 	CubeSolver cs;

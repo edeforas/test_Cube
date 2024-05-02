@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
 	Cube c;
-	disp(c);
+	CubeHelper::print(c);
 
 	// find rotations to go back to PLL state
 	CubeSolver cs;
