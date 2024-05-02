@@ -11,6 +11,9 @@ using namespace std;
 // https://alg.cubing.net/?stage=PLL&type=alg&setup=_U-_(L2_U2)3_L2_U_L2_U-_(L2_U2)3_U_L2_U-_L2U
 // but is this sequence minimal ? (22h, 38q)
 
+// spoil : this one can be found :(17h, 28q)
+//https://alg.cubing.net/?type=alg&alg=(U_R2)3_(U2_R2)2_(U_R2)2_(U2_R2)_U
+
 int main()
 {
 	Cube c;
