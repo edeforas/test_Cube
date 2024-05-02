@@ -1,5 +1,8 @@
 include_directories(../src)
 
+add_executable(test_find_Jb test_find_Jb.cpp  )
+target_link_libraries(test_find_Jb libCube)
+
 add_executable(test_find_PLL test_find_PLL.cpp  )
 target_link_libraries(test_find_PLL libCube)
 

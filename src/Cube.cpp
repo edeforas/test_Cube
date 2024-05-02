@@ -91,7 +91,7 @@ void Cube_Face::rotate_counterclockwise()
     _facet[8]=f2;
 }
 ///////////////////////////////////////////////////////////////////////////////
-void Cube_Face::ignore_edge() // set all edge to grey
+void Cube_Face::ignore_edges() // set all edge to grey
 {
 	_facet[1] = GREY;
 	_facet[3] = GREY;
@@ -119,14 +119,14 @@ void Cube::init()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-void Cube::ignore_edge()
+void Cube::ignore_edges()
 {
-	_U.ignore_edge();
-	_F.ignore_edge();
-	_R.ignore_edge();
-	_L.ignore_edge();
-	_D.ignore_edge();
-	_B.ignore_edge();
+	_U.ignore_edges();
+	_F.ignore_edges();
+	_R.ignore_edges();
+	_L.ignore_edges();
+	_D.ignore_edges();
+	_B.ignore_edges();
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool Cube::is_solved() const

@@ -30,7 +30,7 @@ public:
 	bool is_corner_solved() const;
     bool is_same_as(const Cube_Face& f) const;
 
-	void ignore_edge(); // set all edge to grey
+	void ignore_edges(); // set all edge to grey
 
     int& facet(unsigned int i); //center is [0]
     int facet(unsigned int i) const; //center is [0]
@@ -49,7 +49,7 @@ public:
     ~Cube();
     void init(); // Up is white, Front is blue
 
-	void ignore_edge(); // write all edge to grey
+	void ignore_edges(); // write all edge to grey
 
     //cube tests
     bool is_solved() const;
