@@ -68,6 +68,9 @@ bool CubeSolver::run()
 				if (_iFinalState == FINAL_STATE_EDGEPLL)
 					bFoundSolution = c.is_pll_state() && c.is_corners_solved();
 
+				if (_iFinalState == FINAL_STATE_CORNERPLACED)
+					bFoundSolution = c.is_corners_placed();
+
 				if (bFoundSolution)
 				{
 					if (_bStopAtFirstSolution)

@@ -222,6 +222,140 @@ bool Cube::is_pll_state() const
     return is_oll_state() && _U.is_solved();
 }
 ///////////////////////////////////////////////////////////////////////////////
+bool Cube::is_corners_placed() const
+{
+    //cube mapping is:
+
+                // 8 1 2
+                // 7 0 3
+                // 6 5 4
+
+    // 8 1 2    // 8 1 2    // 8 1 2
+    // 7 0 3    // 7 0 3    // 7 0 3
+    // 6 5 4    // 6 5 4    // 6 5 4
+    
+                // 8 1 2
+                // 7 0 3
+                // 6 5 4
+
+                // 8 1 2
+                // 7 0 3
+                // 6 5 4
+
+    int centerU = _U.facet(0);
+    int centerF = _F.facet(0);
+    int centerR = _R.facet(0);
+    int centerL = _L.facet(0);
+    int centerD = _D.facet(0);
+    int centerB = _B.facet(0);
+
+    //test corner in UFR
+    {
+        int cornerU = _U.facet(4);
+        if ((cornerU != centerU) && (cornerU != centerF) && (cornerU != centerR))
+            return false;
+        int cornerF = _F.facet(2);
+        if ((cornerF != centerU) && (cornerF != centerF) && (cornerF != centerR))
+            return false;
+        int cornerR = _R.facet(6);
+        if ((cornerR != centerU) && (cornerR != centerF) && (cornerR != centerR))
+            return false;
+    }
+
+    //test corner in UFL
+    {
+        int cornerU = _U.facet(6);
+        if ((cornerU != centerU) && (cornerU != centerF) && (cornerU != centerL))
+            return false;
+        int cornerF = _F.facet(8);
+        if ((cornerF != centerU) && (cornerF != centerF) && (cornerF != centerL))
+            return false;
+        int cornerL = _L.facet(4);
+        if ((cornerL != centerU) && (cornerL != centerF) && (cornerL != centerL))
+            return false;
+    }
+
+    //test corner in UBR
+    {
+        int cornerU = _U.facet(2);
+        if ((cornerU != centerU) && (cornerU != centerB) && (cornerU != centerR))
+            return false;
+        int cornerB = _B.facet(4);
+        if ((cornerB != centerU) && (cornerB != centerB) && (cornerB != centerR))
+            return false;
+        int cornerR = _R.facet(4);
+        if ((cornerR != centerU) && (cornerR != centerB) && (cornerR != centerR))
+            return false;
+    }
+
+    //test corner in UBL
+    {
+        int cornerU = _U.facet(8);
+        if ((cornerU != centerU) && (cornerU != centerB) && (cornerU != centerL))
+            return false;
+        int cornerB = _B.facet(6);
+        if ((cornerB != centerU) && (cornerB != centerB) && (cornerB != centerL))
+            return false;
+        int cornerL = _R.facet(8);
+        if ((cornerL != centerU) && (cornerL != centerB) && (cornerL != centerL))
+            return false;
+    }
+
+    //test corner in DFR
+    {
+        int cornerD = _D.facet(2);
+        if ((cornerD != centerD) && (cornerD != centerF) && (cornerD != centerR))
+            return false;
+        int cornerF = _F.facet(4);
+        if ((cornerF != centerD) && (cornerF != centerF) && (cornerF != centerR))
+            return false;
+        int cornerR = _R.facet(4);
+        if ((cornerR != centerD) && (cornerR != centerF) && (cornerR != centerR))
+            return false;
+    }
+
+    //test corner in DFL
+    {
+        int cornerD = _D.facet(8);
+        if ((cornerD != centerD) && (cornerD != centerF) && (cornerD != centerL))
+            return false;
+        int cornerF = _F.facet(6);
+        if ((cornerF != centerD) && (cornerF != centerF) && (cornerF != centerL))
+            return false;
+        int cornerL = _L.facet(6);
+        if ((cornerL != centerD) && (cornerL != centerF) && (cornerL != centerL))
+            return false;
+    }
+
+    //test corner in DBR
+    {
+        int cornerD = _D.facet(4);
+        if ((cornerD != centerD) && (cornerD != centerB) && (cornerD != centerR))
+            return false;
+        int cornerB = _B.facet(2);
+        if ((cornerB != centerD) && (cornerB != centerB) && (cornerB != centerR))
+            return false;
+        int cornerR = _R.facet(2);
+        if ((cornerR != centerD) && (cornerR != centerB) && (cornerR != centerR))
+            return false;
+    }
+
+    //test corner in DBL
+    {
+        int cornerD = _D.facet(6);
+        if ((cornerD != centerD) && (cornerD != centerB) && (cornerD != centerL))
+            return false;
+        int cornerB = _B.facet(8);
+        if ((cornerB != centerD) && (cornerB != centerB) && (cornerB != centerL))
+            return false;
+        int cornerL = _L.facet(8);
+        if ((cornerL != centerD) && (cornerL != centerB) && (cornerL != centerL))
+            return false;
+    }
+
+    return true;
+}
+///////////////////////////////////////////////////////////////////////////////
 bool Cube::is_corners_solved() const //all corners solved, edge ignored
 {
 	if (!_U.is_corner_solved())

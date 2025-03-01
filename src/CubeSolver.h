@@ -10,6 +10,7 @@ using namespace std;
 #define FINAL_STATE_SOLVED (0) //solved
 #define FINAL_STATE_PLL (1) // edge and corner need PLL
 #define FINAL_STATE_EDGEPLL (2) // corners are well placed, edge need PLL
+#define FINAL_STATE_CORNERPLACED (3) // corners are well placed, but may need rorientating, edge anywhere
 
 class CubeSolver
 {

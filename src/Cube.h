@@ -58,6 +58,7 @@ public:
     bool is_down_ring_solved() const;
     bool is_oll_state() const; //all solved but not upper layer
     bool is_pll_state() const; //all solved but not upper ring
+	bool is_corners_placed() const; // all corners placed but may need orientation, edges anywhere
 	bool is_corners_solved() const; //all corners solved, edge ignored
 	bool is_same_as(const Cube& c) const;
 
