@@ -111,6 +111,10 @@ private:
 	void Mi();
 	void M2();
 
+	void X();
+	void Xi();
+	void X2();
+
     Cube_Face _R,_L,_U,_F,_D,_B;
 };
 

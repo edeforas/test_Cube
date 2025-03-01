@@ -34,6 +34,10 @@ using namespace std;
 #define ROT_Mp (256*2+64)
 #define ROT_M2 (256*3+64)
 
+#define ROT_X (256+128)
+#define ROT_Xp (256*2+128)
+#define ROT_X2 (256*3+128)
+
 #define ROT_SAME_AXIS(a,b) (((a & b) & 255)!=0)
 
 class Sequence

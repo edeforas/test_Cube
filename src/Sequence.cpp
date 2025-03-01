@@ -217,6 +217,10 @@ void Sequence::build_map_fromto_string()
 	_mapFromString["M'"] = ROT_Mp;
 	_mapFromString["M2"] = ROT_M2;
 
+	_mapFromString["X"] = ROT_X;
+	_mapFromString["X'"] = ROT_Xp;
+	_mapFromString["X2"] = ROT_X2;
+
 	_mapToString.clear();
 	for (auto it = _mapFromString.begin(); it != _mapFromString.end(); it++)
 	{

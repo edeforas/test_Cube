@@ -788,6 +788,44 @@ void Cube::M2()
     M(); M(); //todo optimize
 }
 ///////////////////////////////////////////////////////////////////////////////
+void Cube::X()
+{
+    Cube_Face fU = _U;
+    _U = _F;
+    _F = _D;
+    _D = _B;
+    _B = fU;
+    _R.rotate_clockwise();
+    _L.rotate_counterclockwise();
+}
+///////////////////////////////////////////////////////////////////////////////
+void Cube::Xi()
+{
+    Cube_Face fU = _U;
+    _U = _B;
+    _B = _D;
+    _D = _F;
+    _F = fU;
+    _R.rotate_counterclockwise();
+    _L.rotate_clockwise();
+}
+///////////////////////////////////////////////////////////////////////////////
+void Cube::X2()
+{
+    Cube_Face fU = _U;
+    _U = _D;
+    _D = fU;
+    
+    Cube_Face fF = _F;
+    _F = _B;
+    _B = fF;
+    _R.rotate_clockwise();
+    _R.rotate_clockwise();
+
+    _L.rotate_clockwise();
+    _L.rotate_clockwise();
+}
+///////////////////////////////////////////////////////////////////////////////
 Cube_Face& Cube::faceR()
 { return _R; }
 ///////////////////////////////////////////////////////////////////////////////
@@ -848,6 +886,10 @@ void Cube::rotate(const vector<int>& vsSeq)
 		else if (sRot == ROT_M) M();
 		else if (sRot == ROT_Mp) Mi();
 		else if (sRot == ROT_M2) M2();
+
+        else if (sRot == ROT_X) X();
+        else if (sRot == ROT_Xp) Xi();
+        else if (sRot == ROT_X2) X2();
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////
