@@ -5,9 +5,19 @@ using namespace std;
 #include "CubeHelper.h"
 #include "CubeSolver.h"
 
-// the goal is to find a Jb permutation on a constrained cube (only move on F, R and U allowed)
+// the goal is to find a Jb permutation on a RUF constrained cube (only move on F, R and U allowed)
 // using only F F' R R' U U'
-// edges can scramble
+// corners will we turned later using Sune
+// edges can scramble, will be solved later using U perm
+
+void test(bool b, const string& sMessage = "")
+{
+	if (!b)
+	{
+		cerr << "Test Error: " << sMessage.c_str() << endl;
+		exit(-1);
+	}
+}
 
 int main()
 {
@@ -27,7 +37,7 @@ int main()
 	cs.set_stop_at_first_solution(false); // find all solutions
 	cs.set_output_file("test_find_Jb_3faces_RUF.txt");
 
-	cs.run();
+	test(cs.run());
 
     return 0;
 }

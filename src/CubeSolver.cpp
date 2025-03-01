@@ -39,6 +39,7 @@ void CubeSolver::set_stop_at_first_solution(bool bStopAtFirstSolution)
 ///////////////////////////////////////////////////////////////////////////////
 bool CubeSolver::run()
 {
+	bool ret = false;
 	std::ofstream f(_sFileAllSolutions);
 	set<string> uniqueSolutions;
 
@@ -73,6 +74,7 @@ bool CubeSolver::run()
 
 				if (bFoundSolution)
 				{
+					ret = true;
 					if (_bStopAtFirstSolution)
 						return true;
 					else
@@ -94,7 +96,7 @@ bool CubeSolver::run()
 		} while (!bGrowSequence);
 	}
 	
-	return false;
+	return ret;
 }
 ///////////////////////////////////////////////////////////////////////////////
 string CubeSolver::found_sequence()

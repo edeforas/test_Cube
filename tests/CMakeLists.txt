@@ -27,4 +27,5 @@ target_link_libraries(test_sequence libCube)
 add_executable(test_is_corner_placed test_is_corner_placed.cpp  )
 target_link_libraries(test_is_corner_placed libCube)
 
+add_test(test_find_Jb_3faces_RUF test_find_Jb_3faces_RUF)
 add_test(test_is_corner_placed test_is_corner_placed)
