@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2.0)
+cmake_minimum_required(VERSION 3.20.0)
 project (test_cube)
 
 add_subdirectory(src)
