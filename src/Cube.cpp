@@ -296,7 +296,7 @@ bool Cube::is_corners_placed() const
         int cornerB = _B.facet(6);
         if ((cornerB != centerU) && (cornerB != centerB) && (cornerB != centerL))
             return false;
-        int cornerL = _R.facet(8);
+        int cornerL = _L.facet(8);
         if ((cornerL != centerU) && (cornerL != centerB) && (cornerL != centerL))
             return false;
     }

@@ -20,3 +20,8 @@ target_link_libraries(test_PLL libCube)
 
 add_executable(test_sequence test_sequence.cpp  )
 target_link_libraries(test_sequence libCube)
+
+add_executable(test_is_corner_placed test_is_corner_placed.cpp  )
+target_link_libraries(test_is_corner_placed libCube)
+
+add_test(test_is_corner_placed test_is_corner_placed)
