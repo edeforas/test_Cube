@@ -50,66 +50,10 @@ void Sequence::from_string(const string& sSeq,vector<int>& vsSeq) const
 ///////////////////////////////////////////////////////////////////////////////
 void Sequence::to_string(const vector<int>& vsSeq, string& sSeq,bool bSimplify) const
 {
+	(void)bSimplify;
 	sSeq.clear();
-
-	for (size_t i = 0; i < vsSeq.size(); i++)
-	{
-		sSeq += " "+_mapToString.at(vsSeq[i]);
-	}
-	/*
-	if (vsSeq.empty())
-		return;
-	
-	if (!bSimplify)
-		for (unsigned int i = 0; i < vsSeq.size(); i++)
-			sSeq = sSeq + " " + vsSeq[i];
-	else
-	{
-		string prevRotation="#";
-		int iPrevAngle = 0; // 0 = nothing, 1= 90deg, 2 = 180deg, 3=-90deg
-		for (unsigned int i = 0; i <= vsSeq.size(); i++)
-		{
-			if (i == 0)
-				prevRotation = vsSeq[0];
-
-			// compute current rotation and current angle
-			string currentRotation;
-			if (i < vsSeq.size())
-				currentRotation = vsSeq[i];
-			else
-				currentRotation = "&"; // impossible new axis, used to add last move
-			int iCurrentAngle = 0;
-			if (currentRotation.size() > 1)
-			{
-				if (currentRotation[1] == '2') iCurrentAngle = 2;
-				if (currentRotation[1] == '\'') iCurrentAngle = 3;
-			}
-			else
-				iCurrentAngle = 1;
-
-			if ((currentRotation[0] == prevRotation[0]))
-			{
-				iPrevAngle += iCurrentAngle;
-			}
-			else
-			{
-				// flush axis
-				iPrevAngle = iPrevAngle % 4;
-				if (iPrevAngle != 0)
-				{
-					if (i != 0)
-						sSeq += " ";
-					sSeq += prevRotation[0];
-					if (iPrevAngle == 2) sSeq += "2";
-					if (iPrevAngle == 3) sSeq += "'";
-				}
-
-				prevRotation = currentRotation;
-				iPrevAngle = iCurrentAngle;
-			}
-		}
-	}
-	*/
+	for (auto& s:vsSeq)
+		sSeq += " "+ _mapToString.at(s);
 }
 ///////////////////////////////////////////////////////////////////////////////
 void Sequence::set_allowed_rotations(const string& sRotations)
@@ -185,7 +129,6 @@ string Sequence::to_string(bool bSimplify) const
 	return s;
 }
 ///////////////////////////////////////////////////////////////////////////////
-
 void Sequence::build_map_fromto_string()
 {
 	_mapFromString.clear();
@@ -222,9 +165,7 @@ void Sequence::build_map_fromto_string()
 	_mapFromString["X2"] = ROT_X2;
 
 	_mapToString.clear();
-	for (auto it = _mapFromString.begin(); it != _mapFromString.end(); it++)
-	{
-		_mapToString[it->second] = it->first;
-	}
+	for (auto& it:_mapFromString)
+		_mapToString[it.second] = it.first;
 }
-
+///////////////////////////////////////////////////////////////////////////////
