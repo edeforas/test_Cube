@@ -13,12 +13,29 @@ using namespace std;
 #define BLUE (5)
 #define GREEN (6)
 
+//cube mapping is:
+// 
+//     B
+//   L U R
+//     F
+//     D
 
-//cube facet index is:
+// or by facet
+                // 8 1 2
+                // 7 0 3
+                // 6 5 4
 
-// 8 1 2
-// 7 0 3
-// 6 5 4
+    // 8 1 2    // 8 1 2    // 8 1 2
+    // 7 0 3    // 7 0 3    // 7 0 3
+    // 6 5 4    // 6 5 4    // 6 5 4
+
+                // 8 1 2
+                // 7 0 3
+                // 6 5 4
+
+                // 8 1 2
+                // 7 0 3
+                // 6 5 4
 
 class Cube_Face
 {
@@ -49,7 +66,7 @@ public:
     ~Cube();
     void init(); // Up is white, Front is blue
 
-	void ignore_edges(); // write all edge to grey
+	void ignore_edges(); // set all edge to grey
 
     //cube tests
     bool is_solved() const;

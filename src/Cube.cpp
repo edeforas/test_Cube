@@ -224,24 +224,6 @@ bool Cube::is_pll_state() const
 ///////////////////////////////////////////////////////////////////////////////
 bool Cube::is_corners_placed() const
 {
-    //cube mapping is:
-
-                // 8 1 2
-                // 7 0 3
-                // 6 5 4
-
-    // 8 1 2    // 8 1 2    // 8 1 2
-    // 7 0 3    // 7 0 3    // 7 0 3
-    // 6 5 4    // 6 5 4    // 6 5 4
-    
-                // 8 1 2
-                // 7 0 3
-                // 6 5 4
-
-                // 8 1 2
-                // 7 0 3
-                // 6 5 4
-
     int centerU = _U.facet(0);
     int centerF = _F.facet(0);
     int centerR = _R.facet(0);
